@@ -4,26 +4,22 @@ import Layout from "./components/Layout";
 import Home from "./components/Home";
 
 import "./custom.css";
+import "./components/library/library.css"
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import axios from "axios";
-import Movies from "./components/library/Movies";
-import TvShows from "./components/library/TvShows";
-import FavoriteMovies from "./components/library/Favorites/FavoriteMovies";
-import AddNewMovie from "./components/library/AddPages/AddNewMovie";
-import AddNewTvShow from "./components/library/AddPages/AddNewTvShow";
+import Library from "./components/library/Library";
+import Favorite from "./components/library/Favorites/Favorite";
+import AddNew from "./components/library/AddPage/AddNew";
 import Profile from "./components/auth/Profile";
-import FavoriteTvShows from "./components/library/Favorites/FavoriteTvShows";
-import SearchMovieOutside from "./components/library/SearchOutside/SearchMovieOutside";
-import SearchTvShowOutside from "./components/library/SearchOutside/SearchTvShowOutside";
-import EditMovie from "./components/library/Edit/EditMovie";
-import EditTvShow from "./components/library/Edit/EditTvShow";
-import MovieInfo from "./components/Info/MovieInfo";
-import TvShowInfo from "./components/Info/TvShowInfo";
+import Search from "./components/library/SearchOutside/Search";
+import Info from "./components/library/Info/Info";
+import Edit from "./components/library/Edit/Edit";
 
 function App() {
     
     const [user, setUser] = useState({});
+    const [id, setId] = useState(0);
     
     useEffect(() => {
         getUser()
@@ -49,18 +45,21 @@ function App() {
             <Route path="/login" component={() => <Login setUser={setUser}/>} />
             <Route path="/register" component={Register} />
             <Route path="/profile" component={() => <Profile user={user} setUser={setUser}/>} />
-            <Route path="/movies" component={() => <Movies user={user}/>} />
-            <Route path="/tv-shows" component={() => <TvShows user={user}/>} />
-            <Route path="/favorite-movies" component={() => <FavoriteMovies user={user}/>} />
-            <Route path="/favorite-tvshow" component={() => <FavoriteTvShows user={user}/>} />
-            <Route path="/add-new-movie" component={() => <AddNewMovie user={user}/>} />
-            <Route path='/edit-movie' component={EditMovie} />
-            <Route path="/add-new-tvshow" component={() => <AddNewTvShow user={user}/>} />
-            <Route path='/edit-tvshow' component={EditTvShow} />
-            <Route path="/search-movie" component={() => <SearchMovieOutside user={user}/>} />
-            <Route path="/search-tvshow" component={() => <SearchTvShowOutside user={user}/>} />
-            <Route path="/movie-info" component={MovieInfo} />
-            <Route path="/tvshow-info" component={TvShowInfo} />
+            <Route path="/movies" component={() => <Library user={user} setId={setId} which={1}/>} />
+            <Route path="/tv-shows" component={() => <Library user={user} setId={setId} which={2}/>} />
+            <Route path="/favorite-movies" component={() => <Favorite user={user} which={1} setId={setId}/>} />
+            <Route path="/favorite-tvshow" component={() => <Favorite user={user} which={2} setId={setId}/>} />
+            <Route path="/add-new-movie" component={() => <AddNew user={user} which={1}/>} />
+            <Route path='/edit-movie' component={() => <Edit which={1} id={id}/>} />
+            <Route path="/add-new-tvshow" component={() => <AddNew user={user} which={2}/>} />
+            <Route path='/edit-tvshow' component={() => <Edit which={2} id={id}/>} />
+            <Route path="/search-movie" component={() => <Search user={user} which={1}/>} />
+            <Route path="/search-tvshow" component={() => <Search user={user} which={2}/>} />
+            <Route path="/movie-info" component={() => <Info which={1} id={id}/>} />
+            <Route path="/tvshow-info" component={() => <Info which={2} id={id}/>} />
+            <footer className="footer">
+                © 2021 IBRA's Movies Library. All rights reserved.
+            </footer>
         </Layout>
     );
 }

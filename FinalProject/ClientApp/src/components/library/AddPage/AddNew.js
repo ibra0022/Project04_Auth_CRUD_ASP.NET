@@ -3,15 +3,13 @@ import {useHistory} from 'react-router-dom';
 
 import axios from "axios";
 
-function AddNewMovie(props) {
+function AddNew(props) {
     
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
     const [summary, setSummary] = useState("");
     const [rating, setRating] = useState(0);
     const [poster, setPoster] = useState("");
-    const [favoriteMovie, setFavoriteMovie] = useState(null);
-    const [loading, setLoading] = useState(true);
 
     const history = useHistory();
 
@@ -40,32 +38,58 @@ function AddNewMovie(props) {
     }
 
     const submit = () => {
-        axios.post("https://localhost:5001/api/movies", {
-            title: title,
-            date: date,
-            summary: summary,
-            rating: rating,
-            poster: poster,
-        }, {
-            withCredentials: true
-        }).then(res => {
-            console.log(res);
-            history.push("/movies");
+        if (props.which == 1) {
+            axios.post("https://localhost:5001/api/movies", {
+                title: title,
+                date: date,
+                summary: summary,
+                rating: rating,
+                poster: poster,
+            }, {
+                withCredentials: true
+            }).then(res => {
+                console.log(res);
+                history.push("/movies");
 
-        }).catch(err => console.log(err));
+            }).catch(err => console.log(err));
+        } else if (props.which == 2) {
+            axios.post("https://localhost:5001/api/tvshows", {
+                title: title,
+                date: date,
+                summary: summary,
+                rating: rating,
+                poster: poster,
+            }, {
+                withCredentials: true
+            }).then(res => {
+                console.log(res);
+                history.push("/tv-shows");
+
+            }).catch(err => console.log(err));
+        }
     }
+    
+    let header;
 
+    if (props.which == 1) {
+        header = "Add New Movie"
+    }else if (props.which == 2) {
+        header = "Add New TV Show"
+    }
+    
     return (
         <div className="fade-me">
+            <h1 className="neonText" style={{textAlign: "center" }}>{header}</h1>
+
             <div
-                className="card"
+                className="card rad"
                 style={{
                     width: "40rem",
                     margin: "0 auto",
-                    marginTop: "10em",
+                    marginTop: "5em",
                     textAlign: "left",
                     padding: "3em",
-                    backgroundColor: "#1c212a"
+                    backgroundColor: "#191919"
                 }}
             >
                 <div className="mb-3">
@@ -126,22 +150,16 @@ function AddNewMovie(props) {
                         onChange={posterOnChange}
                     />
                 </div>
-                <div className="mb-3 form-check">
-                    <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="exampleCheck1"
-                    />
-                    <label className="form-check-label" htmlFor="exampleCheck1">
-                        Check me out
-                    </label>
-                </div>
-                <button type="submit" onClick={submit} className="btn btn-primary">
-                    Submit
+                <button type="submit" onClick={submit} className="btn" style={{
+                    marginTop: "3em",
+                    backgroundColor: "#680000",
+                    color: "white"
+                }}>
+                    Add
                 </button>
             </div>
         </div>
     );
 }
 
-export default AddNewMovie;
+export default AddNew;

@@ -12,7 +12,6 @@ import {
 import { Link } from "react-router-dom";
 
 import logo from "./logo.png"
-import logo2 from "./logo2.png"
 
 import "./NavMenu.css";
 import axios from "axios";
@@ -48,13 +47,8 @@ function NavMenu(props) {
         logMenu = (
             <ul className="navbar-nav flex-grow">
                 <NavItem>
-                    <NavLink tag={Link} className="text-light" to="/login">
-                        Login
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink tag={Link} className="text-light" to="/register">
-                        Register
+                    <NavLink tag={Link} className="text-light btn mySearchBtn" to="/login">
+                        <i className="fas fa-sign-in-alt fa-2x"></i>
                     </NavLink>
                 </NavItem>
             </ul>
@@ -67,20 +61,20 @@ function NavMenu(props) {
                 <NavItem>
                     <NavLink
                         tag={Link}
-                        className="text-light"
+                        className="text-light btn mySearchBtn"
                         to="/profile"
                     >
-                        {props.user.name}'s Profile
+                        <i className="fas fa-user-circle fa-2x"></i>
                     </NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink
                         tag={Link}
-                        className="text-light"
+                        className="text-light btn mySearchBtn"
                         to="/"
                         onClick={logout}
                     >
-                        Logout
+                        <i className="fas fa-sign-out-alt fa-2x"></i>
                     </NavLink>
                 </NavItem>
             </ul>

@@ -4,13 +4,6 @@ import { Redirect } from "react-router-dom";
 function Profile(props) {
     const [user, setUser] = useState({});
 
-    // useEffect(() => {
-    //     setUser(props.user)
-    //
-    //     return () => {};
-    //
-    // }, []);
-
     if (!props.user.profile) {
         console.log("NULL");
     }

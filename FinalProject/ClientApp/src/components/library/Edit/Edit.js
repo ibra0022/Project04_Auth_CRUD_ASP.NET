@@ -1,19 +1,69 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from 'react-router-dom';
 
 import axios from "axios";
 
-function AddNewTvShow(props) {
-    
+export default function Edit(props) {
+
+    const [element, setElement] = useState({});
     const [title, setTitle] = useState("");
     const [date, setDate] = useState("");
     const [summary, setSummary] = useState("");
     const [rating, setRating] = useState(0);
     const [poster, setPoster] = useState("");
     const [loading, setLoading] = useState(true);
+    
+    
+
+    useEffect(() => {
+        console.log("edit", props);
+        if (props.which == 1)
+        {
+            console.log("movie")
+            console.log(props)
+            
+            axios.get(`https://localhost:5001/api/movies/${props.id}`)
+                .then(res => {
+                    const list = res.data;
+                    setElement(list);
+                    setTitle(list.title)
+                    setDate(list.date)
+                    setSummary(list.summary)
+                    setRating(list.rating)
+                    setPoster(list.poster)
+                    setLoading(false)
+                    console.log(res.data)
+                }).catch(err => {
+                console.log(err)
+            })
+        }
+        else if (props.which == 2)
+        {
+            console.log("tv")
+            axios.get(`https://localhost:5001/api/tvshows/${props.id}`)
+                .then(res => {
+                    const list = res.data;
+                    setElement(list);
+                    setTitle(list.title)
+                    setDate(list.date)
+                    setSummary(list.summary)
+                    setRating(list.rating)
+                    setPoster(list.poster)
+                    setLoading(false)
+                    console.log(res.data)
+                }).catch(err => {
+                console.log(err)
+            })
+        }
+        
+        return () => {
+
+        }
+    }, [])
 
     const history = useHistory();
 
+    
     const titleOnChange = (event) => {
         setTitle(event.target.value)
     }
@@ -39,32 +89,50 @@ function AddNewTvShow(props) {
     }
 
     const submit = () => {
-        axios.post("https://localhost:5001/api/tvshows", {
-            title: title,
-            date: date,
-            summary: summary,
-            rating: rating,
-            poster: poster,
-        }, {
-            withCredentials: true
-        }).then(res => {
-            console.log(res);
-            history.push("/tv-shows");
+        if (props.which == 1) {
+            axios.put(`https://localhost:5001/api/movies/${props.id}`, {
+                title: title,
+                date: date,
+                summary: summary,
+                rating: rating,
+                poster: poster,
+            }, {
+                withCredentials: true,
+            }).then(res => {
+                console.log(res);
+                history.push("/movies");
 
-        }).catch(err => console.log(err));
+            }).catch(err => console.log(err));
+        }
+        else if (props.which == 2) {
+            axios.put(`https://localhost:5001/api/tvshows/${props.id}`, {
+                title: title,
+                date: date,
+                summary: summary,
+                rating: rating,
+                poster: poster,
+            }, {
+                withCredentials: true,
+            }).then(res => {
+                console.log(res);
+                history.push("/tv-shows");
+
+            }).catch(err => console.log(err));
+        }
     }
 
     return (
         <div className="fade-me">
+            <h1 className="neonText" style={{textAlign: "center"}}>Edit Movie</h1>
             <div
-                className="card"
+                className="card rad"
                 style={{
                     width: "40rem",
                     margin: "0 auto",
-                    marginTop: "10em",
+                    marginTop: "5em",
                     textAlign: "left",
                     padding: "3em",
-                    backgroundColor: "#1c212a"
+                    backgroundColor: "#191919"
                 }}
             >
                 <div className="mb-3">
@@ -73,10 +141,12 @@ function AddNewTvShow(props) {
                     </label>
                     <input
                         type="text"
+                        defaultValue={element? element.title : "" || ""}
                         className="form-control"
                         id="title"
                         aria-describedby="titleHelp"
                         onChange={titleOnChange}
+
                     />
                 </div>
                 <div className="mb-3">
@@ -85,6 +155,7 @@ function AddNewTvShow(props) {
                     </label>
                     <input
                         type="date"
+                        defaultValue={element? element.date : "" || ""}
                         className="form-control"
                         id="date"
                         onChange={dateOnChange}
@@ -96,6 +167,7 @@ function AddNewTvShow(props) {
                     </label>
                     <textarea
                         rows="3"
+                        defaultValue={element? element.summary : "" || ""}
                         className="form-control"
                         id="summary"
                         onChange={summaryOnChange}
@@ -108,6 +180,7 @@ function AddNewTvShow(props) {
                     <input
                         type="number"
                         className="form-control"
+                        defaultValue={element? element.rating : "" || ""}
                         id="rating"
                         min="1"
                         max="10"
@@ -120,27 +193,21 @@ function AddNewTvShow(props) {
                     </label>
                     <input
                         type="text"
+                        defaultValue={element? element.poster : "" || ""}
                         className="form-control"
                         id="poster"
                         onChange={posterOnChange}
                     />
                 </div>
-                <div className="mb-3 form-check">
-                    <input
-                        type="checkbox"
-                        className="form-check-input"
-                        id="exampleCheck1"
-                    />
-                    <label className="form-check-label" htmlFor="exampleCheck1">
-                        Check me out
-                    </label>
-                </div>
-                <button type="submit" onClick={submit} className="btn btn-primary">
-                    Submit
+                <button type="submit" onClick={submit} className="btn" style={{
+                    marginTop: "3em",
+                    backgroundColor: "#680000",
+                    color: "white"
+                }}>
+                    Edit
                 </button>
             </div>
         </div>
     );
+    // }
 }
-
-export default AddNewTvShow;
