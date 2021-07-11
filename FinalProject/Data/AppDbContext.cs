@@ -141,5 +141,9 @@ namespace FinalProject.Data
             return result;
         }
 
+        public DbSet<FinalProject.Models.MovieReview> MovieReview { get; set; }
+
+        public DbSet<FinalProject.Models.TvShowReview> TvShowReview { get; set; }
+
     }
 }

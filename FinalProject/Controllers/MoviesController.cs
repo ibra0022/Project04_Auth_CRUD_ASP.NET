@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinalProject.Data;
+using FinalProject.Dtos;
 using FinalProject.Helpers;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Http;
@@ -41,13 +42,29 @@ namespace FinalProject.Controllers
         public ActionResult Get(int id)
         {
             var movie = _db.Movies.SingleOrDefault(a => a.Id == id);
-
+            
             if (movie == null)
             {
                 return BadRequest();
             }
             
-            return Ok(movie);
+            IEnumerable<MovieReview> movieReviews = _db.MovieReview.Where(r => r.MovieId == id).Include(p => p.Profile).Include(n => n.Profile.User).ToList();
+            List<ReviewDto> reviewDto = new List<ReviewDto>();
+            foreach (var review in movieReviews)
+            {
+                reviewDto.Add(new ReviewDto()
+                {
+                    UserName = review.Profile.User.Name,
+                    Text = review.Text,
+                    Spoiler = review.Spoiler
+                });
+            }
+            
+            return Ok(new
+            {
+                movie,
+                reviewDto
+            });
             
         }
         

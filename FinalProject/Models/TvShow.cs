@@ -16,6 +16,8 @@ namespace FinalProject.Models
         // Navigations properties
         public ICollection<FavoriteTvShow> FavoriteTvShow { get; set; }
         
+        public ICollection<TvShowReview> TvShowReview { get; set; }
+        
         public int? ProfileId { get; set; }
         public Profile Profile { get; set; }
     }

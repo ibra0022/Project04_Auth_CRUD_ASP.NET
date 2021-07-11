@@ -17,12 +17,13 @@ namespace FinalProject.Models
         
         
         
+        public ICollection<Movie> Movie { get; set; }
+        public ICollection<TvShow> TvShow { get; set; }
         public ICollection<FavoriteMovie> FavoriteMovie { get; set; }
-        
         public ICollection<FavoriteTvShow> FavoriteTvShow { get; set; }
         
-        public ICollection<Movie> Movie { get; set; }
+        public ICollection<MovieReview> MovieReview { get; set; }
+        public ICollection<TvShowReview> TvShowReview { get; set; }
         
-        public ICollection<TvShow> TvShow { get; set; }
     }
 }

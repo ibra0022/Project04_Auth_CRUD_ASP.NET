@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FinalProject.Data;
+using FinalProject.Dtos;
 using FinalProject.Helpers;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.Controllers
 {
@@ -38,15 +40,29 @@ namespace FinalProject.Controllers
         [HttpGet("{id}")]
         public ActionResult Get(int id)
         {
-            Console.WriteLine("GET");
             var tvShow = _db.TvShows.SingleOrDefault(a => a.Id == id);
 
             if (tvShow == null)
             {
                 return BadRequest();
             }
+            IEnumerable<TvShowReview> tvReviews = _db.TvShowReview.Where(r => r.TvShowId == id).Include(p => p.Profile).Include(n => n.Profile.User).ToList();
+            List<ReviewDto> reviewDto = new List<ReviewDto>();
+            foreach (var review in tvReviews)
+            {
+                reviewDto.Add(new ReviewDto()
+                {
+                    UserName = review.Profile.User.Name,
+                    Text = review.Text,
+                    Spoiler = review.Spoiler
+                });
+            }
             
-            return Ok(tvShow);
+            return Ok(new
+            {
+                tvShow,
+                reviewDto
+            });
         }
         
         // POST: api/TvShows

@@ -15,6 +15,8 @@ namespace FinalProject.Models
         // Navigations properties
         public ICollection<FavoriteMovie> FavoriteMovie { get; set; }
         
+        [JsonIgnore]public ICollection<MovieReview> MovieReview { get; set; }
+        
         public int? ProfileId { get; set; }
         public Profile Profile { get; set; }
     }
