@@ -63,7 +63,6 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                //var user = _db.Users.FirstOrDefault(u => u.Id == userId);
 
                 var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
 
@@ -142,11 +141,6 @@ namespace FinalProject.Controllers
             }
            
         }
-        
-        // // DELETE: api/Movies/5
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        // }
+
     }
 }

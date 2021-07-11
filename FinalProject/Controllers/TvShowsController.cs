@@ -138,11 +138,5 @@ namespace FinalProject.Controllers
                 return Unauthorized();
             }
         }
-        
-        // // DELETE: api/TvShows/5
-        // [HttpDelete("{id}")]
-        // public void Delete(int id)
-        // {
-        // }
     }
 }

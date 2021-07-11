@@ -104,7 +104,6 @@ namespace FinalProject.Controllers
             
             try
             {
-                // Console.WriteLine("asd");
                 var jwt = Request.Cookies["jwt"];
 
                 var token = _jwtService.Verify(jwt);
