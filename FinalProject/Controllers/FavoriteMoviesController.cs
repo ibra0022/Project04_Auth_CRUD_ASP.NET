@@ -27,7 +27,7 @@ namespace FinalProject.Controllers
         
         // GET: api/FavoriteMovies
         [HttpGet]
-        public IActionResult GetFavMovie()
+        public async Task<IActionResult> GetFavMovie()
         {
             try
             {
@@ -39,9 +39,9 @@ namespace FinalProject.Controllers
 
                 //var user = _db.Users.FirstOrDefault(u => u.Id == userId);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
-                var favMovie = _db.FavoriteMovies.Where(f => f.ProfileId == profile.Id).Include(f => f.Movie).ToList();
+                var favMovie = await _db.FavoriteMovies.Where(f => f.ProfileId == profile.Id).Include(f => f.Movie).ToListAsync();
                 
                 // var movieLists = _db.Movies.
                     
@@ -67,7 +67,7 @@ namespace FinalProject.Controllers
         
         // POST: api/FavoriteMovies
         [HttpPost("{id}")]
-        public IActionResult Post(int id)
+        public async Task<IActionResult> Post(int id)
         {
             try
             {
@@ -80,8 +80,8 @@ namespace FinalProject.Controllers
 
                 //var user = _db.Users.FirstOrDefault(u => u.Id == userId);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
-                if (_db.FavoriteMovies.FirstOrDefault(f => f.ProfileId == profile.Id && f.MovieId == id) != null)
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
+                if (await _db.FavoriteMovies.FirstOrDefaultAsync(f => f.ProfileId == profile.Id && f.MovieId == id) != null)
                 {
                     return BadRequest();
                 }
@@ -92,8 +92,8 @@ namespace FinalProject.Controllers
                     MovieId = id
                 };
                 // Console.WriteLine(favMovie.ProfileId);
-                _db.FavoriteMovies.Add(favMovie);
-                _db.SaveChanges();
+                await _db.FavoriteMovies.AddAsync(favMovie);
+                await _db.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -110,7 +110,7 @@ namespace FinalProject.Controllers
         
         // DELETE: api/FavoriteMovies/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -120,11 +120,9 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                //var user = _db.Users.FirstOrDefault(u => u.Id == userId);
-
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
                 
-                var favMovie = _db.FavoriteMovies.FirstOrDefault(f => f.ProfileId == profile.Id && f.MovieId == id);
+                var favMovie = await _db.FavoriteMovies.FirstOrDefaultAsync(f => f.ProfileId == profile.Id && f.MovieId == id);
                 
                 if (favMovie == null)
                 {
@@ -132,7 +130,7 @@ namespace FinalProject.Controllers
                 }
                 
                 _db.FavoriteMovies.Remove(favMovie);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             catch (Exception e)
             {

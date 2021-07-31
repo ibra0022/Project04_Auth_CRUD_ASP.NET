@@ -8,6 +8,7 @@ using FinalProject.Helpers;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinalProject.Controllers
 {
@@ -25,7 +26,7 @@ namespace FinalProject.Controllers
         }
         
         [HttpPost("register")]
-        public IActionResult Register(RegisterDto dto)
+        public async Task<IActionResult> Register(RegisterDto dto)
         {
             var user = new User
             {
@@ -34,18 +35,18 @@ namespace FinalProject.Controllers
                 Password = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
 
-            _db.Users.Add(user);
-            _db.SaveChanges();
+            await _db.Users.AddAsync(user);
+            await _db.SaveChangesAsync();
             
-            var userFromDb = _db.Users.FirstOrDefault(u => u.Email == dto.Email);
+            var userFromDb = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
             
             return Created("success", userFromDb);
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto dto)
+        public async Task<IActionResult> Login(LoginDto dto)
         {
-            var user = _db.Users.FirstOrDefault(u => u.Email == dto.Email);
+            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == dto.Email);
 
             if (user == null)
             {
@@ -57,7 +58,7 @@ namespace FinalProject.Controllers
                 return BadRequest(new {message = "Invalid Credentials"});
             }
 
-            var profile = _db.Profiles.FirstOrDefault(p => p.UserId == user.Id);
+            var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == user.Id);
             
             var jwt = _jwtService.Generate(user.Id);
             
@@ -74,8 +75,8 @@ namespace FinalProject.Controllers
                     User = user,
                     JoinedDateTime = DateTime.Now
                 };
-                _db.Profiles.Add(newProfile);
-                _db.SaveChanges();
+                await _db.Profiles.AddAsync(newProfile);
+                await _db.SaveChangesAsync();
                 
                 return Ok(new
                 {
@@ -85,10 +86,10 @@ namespace FinalProject.Controllers
             }
             else
             {
-                var movies = _db.Movies.Where(m => m.ProfileId == profile.Id).ToList();
-                var tvShow = _db.TvShows.Where(t => t.ProfileId == profile.Id).ToList();
-                var favoriteMovies = _db.FavoriteMovies.Where(fav => fav.ProfileId == profile.Id).ToList();
-                var favoriteTvShows = _db.FavoriteTvShows.Where(fav => fav.ProfileId == profile.Id).ToList();
+                var movies = await _db.Movies.Where(m => m.ProfileId == profile.Id).ToListAsync();
+                var tvShow = await _db.TvShows.Where(t => t.ProfileId == profile.Id).ToListAsync();
+                var favoriteMovies = await _db.FavoriteMovies.Where(fav => fav.ProfileId == profile.Id).ToListAsync();
+                var favoriteTvShows = await _db.FavoriteTvShows.Where(fav => fav.ProfileId == profile.Id).ToListAsync();
             
                 return Ok(new
                 {
@@ -99,7 +100,7 @@ namespace FinalProject.Controllers
         }
 
         [HttpGet("user")]
-        public IActionResult User()
+        public async Task<IActionResult> User()
         {
             
             try
@@ -110,13 +111,13 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var user = _db.Users.FirstOrDefault(u => u.Id == userId);
+                var user = await _db.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
-                var movies = _db.Movies.Where(m => m.ProfileId == profile.Id).ToList();
-                var tvShow = _db.TvShows.Where(t => t.ProfileId == profile.Id).ToList();
-                var favoriteMovies = _db.FavoriteMovies.Where(fav => fav.ProfileId == profile.Id).ToList();
-                var favoriteTvShows = _db.FavoriteTvShows.Where(fav => fav.ProfileId == profile.Id).ToList();
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
+                var movies = await _db.Movies.Where(m => m.ProfileId == profile.Id).ToListAsync();
+                var tvShow = await _db.TvShows.Where(t => t.ProfileId == profile.Id).ToListAsync();
+                var favoriteMovies = await _db.FavoriteMovies.Where(fav => fav.ProfileId == profile.Id).ToListAsync();
+                var favoriteTvShows = await _db.FavoriteTvShows.Where(fav => fav.ProfileId == profile.Id).ToListAsync();
                 
                 return Ok(user);
             }

@@ -109,7 +109,7 @@ namespace FinalProject.Controllers
                 movieReview.ProfileId = profile.Id;
                 // movieReview.ProfileId = profile.Id;
                 
-                _db.MovieReview.Add(movieReview);
+                await _db.MovieReview.AddAsync(movieReview);
                 await _db.SaveChangesAsync();
 
                 return CreatedAtAction("GetMovieReview", new { id = movieReview.Id }, movieReview);

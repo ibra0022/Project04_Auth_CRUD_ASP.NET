@@ -28,25 +28,25 @@ namespace FinalProject.Controllers
         
         // GET: api/TvShows
         [HttpGet]
-        public IActionResult GetTvShows()
+        public async Task<IActionResult> GetTvShows()
         {
             return Ok(new
             {
-                List = _db.TvShows.ToList()
+                List = await _db.TvShows.ToListAsync()
             });
         }
 
         // GET: api/TvShows/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            var tvShow = _db.TvShows.SingleOrDefault(a => a.Id == id);
+            var tvShow = await _db.TvShows.SingleOrDefaultAsync(a => a.Id == id);
 
             if (tvShow == null)
             {
                 return BadRequest();
             }
-            IEnumerable<TvShowReview> tvReviews = _db.TvShowReview.Where(r => r.TvShowId == id).Include(p => p.Profile).Include(n => n.Profile.User).ToList();
+            IEnumerable<TvShowReview> tvReviews = await _db.TvShowReview.Where(r => r.TvShowId == id).Include(p => p.Profile).Include(n => n.Profile.User).ToListAsync();
             List<ReviewDto> reviewDto = new List<ReviewDto>();
             foreach (var review in tvReviews)
             {
@@ -67,7 +67,7 @@ namespace FinalProject.Controllers
         
         // POST: api/TvShows
         [HttpPost]
-        public ActionResult Post(TvShow tvShow)
+        public async Task<ActionResult> Post(TvShow tvShow)
         {
             try
             {
@@ -77,16 +77,14 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                //var user = _db.Users.FirstOrDefault(u => u.Id == userId);
-
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (profile == null)
                 {
                     return Unauthorized();
                 }
 
-                var tvShowInDatabase =  _db.TvShows.Where(t => t.Title == tvShow.Title).ToList();
+                var tvShowInDatabase =  await _db.TvShows.Where(t => t.Title == tvShow.Title).ToListAsync();
                 if (tvShowInDatabase.Count > 0)
                 {
                     return BadRequest(new
@@ -97,8 +95,8 @@ namespace FinalProject.Controllers
 
                 tvShow.ProfileId = profile.Id;
                 
-                _db.TvShows.Add(tvShow);
-                _db.SaveChanges();
+               await _db.TvShows.AddAsync(tvShow);
+               await _db.SaveChangesAsync();
                 
                 return Ok(tvShow);
             }
@@ -110,7 +108,7 @@ namespace FinalProject.Controllers
         
         // PUT: api/TvShows/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, TvShow tvShow)
+        public async Task<ActionResult> Put(int id, TvShow tvShow)
         {
             try
             {
@@ -120,14 +118,14 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (profile == null)
                 {
                     return Unauthorized();
                 }
                 
-                var editTvShow = _db.TvShows.SingleOrDefault(a => a.Id == id);
+                var editTvShow = await _db.TvShows.SingleOrDefaultAsync(a => a.Id == id);
                 
                 if (editTvShow == null)
                 {
@@ -145,7 +143,7 @@ namespace FinalProject.Controllers
                 editTvShow.Rating = tvShow.Rating;
                 editTvShow.Poster = tvShow.Poster;
                 
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 
                 return Ok(tvShow);
             }

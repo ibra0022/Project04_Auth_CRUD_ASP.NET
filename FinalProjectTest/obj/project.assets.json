@@ -9230,11 +9230,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\FinalProjectTest.csproj",
+      "projectUniqueName": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\FinalProjectTest.csproj",
       "projectName": "FinalProjectTest",
-      "projectPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\FinalProjectTest.csproj",
+      "projectPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\FinalProjectTest.csproj",
       "packagesPath": "C:\\Users\\IBRA\\.nuget\\packages\\",
-      "outputPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\obj\\",
+      "outputPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\IBRA\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9251,8 +9251,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj": {
-              "projectPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj"
+            "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj": {
+              "projectPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj"
             }
           }
         }

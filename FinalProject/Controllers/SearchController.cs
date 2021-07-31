@@ -9,6 +9,7 @@ using FinalProject.Helpers;
 using FinalProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting.Internal;
 using Newtonsoft.Json.Linq;
 
@@ -29,7 +30,7 @@ namespace FinalProject.Controllers
         
         // GET: api/Search/movie/title
         [HttpGet("movie/{title}")]
-        public IActionResult GetMovie(string title)
+        public async Task<IActionResult> GetMovie(string title)
         {
             try
             {
@@ -39,7 +40,7 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (profile == null)
                 {
@@ -73,7 +74,7 @@ namespace FinalProject.Controllers
         }
         // GET: api/Search/tvshow/title
         [HttpGet("tvshow/{title}")]
-        public IActionResult GetTvShow(string title)
+        public async Task<IActionResult> GetTvShow(string title)
         {
             try
             {
@@ -83,7 +84,7 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (profile == null)
                 {

@@ -106,7 +106,7 @@ namespace FinalProject.Controllers
                 }
                 tvShowReview.ProfileId = profile.Id;
                 
-                _db.TvShowReview.Add(tvShowReview);
+                await _db.TvShowReview.AddAsync(tvShowReview);
                 await _db.SaveChangesAsync();
 
                 return CreatedAtAction("GetTvShowReview", new { id = tvShowReview.Id }, tvShowReview);

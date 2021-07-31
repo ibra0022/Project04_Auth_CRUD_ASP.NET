@@ -24,7 +24,7 @@ export default function Edit(props) {
             
             axios.get(`https://localhost:5001/api/movies/${props.id}`)
                 .then(res => {
-                    const list = res.data;
+                    const list = res.data.movie;
                     setElement(list);
                     setTitle(list.title)
                     setDate(list.date)
@@ -42,7 +42,7 @@ export default function Edit(props) {
             console.log("tv")
             axios.get(`https://localhost:5001/api/tvshows/${props.id}`)
                 .then(res => {
-                    const list = res.data;
+                    const list = res.data.tvShow;
                     setElement(list);
                     setTitle(list.title)
                     setDate(list.date)

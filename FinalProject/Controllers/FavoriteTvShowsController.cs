@@ -27,7 +27,7 @@ namespace FinalProject.Controllers
         
         // GET: api/FavoriteTvShow
         [HttpGet]
-        public IActionResult GetFavTvShow()
+        public async Task<IActionResult> GetFavTvShow()
         {
             try
             {
@@ -37,14 +37,10 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                //var user = _db.Users.FirstOrDefault(u => u.Id == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
-
-                var favTvShow = _db.FavoriteTvShows.Where(f => f.ProfileId == profile.Id).Include(f => f.TvShow).ToList();
+                var favTvShow = await _db.FavoriteTvShows.Where(f => f.ProfileId == profile.Id).Include(f => f.TvShow).ToListAsync();
                 
-                // var movieLists = _db.Movies.
-                    
                 if (favTvShow.Count < 1)
                 {
                     return NotFound();
@@ -67,7 +63,7 @@ namespace FinalProject.Controllers
 
         // POST: api/FavoriteTvShow
         [HttpPost("{id}")]
-        public IActionResult Post(int id)
+        public async Task<IActionResult> Post(int id)
         {
             try
             {
@@ -77,9 +73,9 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
                 
-                if (_db.FavoriteTvShows.FirstOrDefault(f => f.ProfileId == profile.Id && f.TvShowId == id) != null)
+                if (await _db.FavoriteTvShows.FirstOrDefaultAsync(f => f.ProfileId == profile.Id && f.TvShowId == id) != null)
                 {
                     return BadRequest();
                 }
@@ -89,8 +85,8 @@ namespace FinalProject.Controllers
                     ProfileId = profile.Id,
                     TvShowId = id
                 };
-                _db.FavoriteTvShows.Add(favTvShow);
-                _db.SaveChanges();
+                await _db.FavoriteTvShows.AddAsync(favTvShow);
+                await _db.SaveChangesAsync();
             }
             catch (Exception e)
             {
@@ -107,7 +103,7 @@ namespace FinalProject.Controllers
 
         // DELETE: api/FavoriteTvShow/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -117,9 +113,9 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
                 
-                var favTvShow = _db.FavoriteTvShows.FirstOrDefault(f => f.ProfileId == profile.Id && f.TvShowId == id);
+                var favTvShow = await _db.FavoriteTvShows.FirstOrDefaultAsync(f => f.ProfileId == profile.Id && f.TvShowId == id);
                 
                 if (favTvShow == null)
                 {
@@ -127,7 +123,7 @@ namespace FinalProject.Controllers
                 }
                 
                 _db.FavoriteTvShows.Remove(favTvShow);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
             catch (Exception e)
             {

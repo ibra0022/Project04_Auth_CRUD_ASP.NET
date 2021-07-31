@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "G2qYIlRnVarK5jYdFGgtamUeNV+uKMRbxn64N6iIJFRNykYo6yXPVMz1UbXWaW0ADoOunwQ18YyiLSOZ4IhAfg==",
+  "dgSpecHash": "nW6lsKcE2BXF7qgSHyPJvOusFQMshYeXu1xQYn/hChG/h/UQ8ENSbJJDI0e+rl4GIm/moUyIfhVgGqq3bG9VBw==",
   "success": true,
-  "projectFilePath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\FinalProjectTest.csproj",
+  "projectFilePath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectTest\\FinalProjectTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\IBRA\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\IBRA\\.nuget\\packages\\humanizer.core\\2.2.0\\humanizer.core.2.2.0.nupkg.sha512",

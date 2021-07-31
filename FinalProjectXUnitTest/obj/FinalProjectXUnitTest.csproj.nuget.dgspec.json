@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj": {}
+    "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj": {}
   },
   "projects": {
-    "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj": {
+    "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj",
+        "projectUniqueName": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj",
         "projectName": "FinalProjectXUnitTest",
-        "projectPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj",
+        "projectPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\FinalProjectXUnitTest.csproj",
         "packagesPath": "C:\\Users\\IBRA\\.nuget\\packages\\",
-        "outputPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\obj\\",
+        "outputPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProjectXUnitTest\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\IBRA\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj": {
-                "projectPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj"
+              "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj": {
+                "projectPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj"
               }
             }
           }
@@ -95,14 +95,14 @@
         }
       }
     },
-    "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj": {
+    "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj",
+        "projectUniqueName": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj",
         "projectName": "FinalProject",
-        "projectPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj",
+        "projectPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\FinalProject.csproj",
         "packagesPath": "C:\\Users\\IBRA\\.nuget\\packages\\",
-        "outputPath": "D:\\Business\\المعسكر\\الاسبوع 11\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\obj\\",
+        "outputPath": "D:\\Business\\المعسكر\\الاسبوع 13\\Project04_Auth_CRUD_ASP.NET\\FinalProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\IBRA\\AppData\\Roaming\\NuGet\\NuGet.Config",

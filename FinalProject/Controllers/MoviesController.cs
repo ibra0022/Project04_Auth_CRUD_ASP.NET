@@ -29,26 +29,26 @@ namespace FinalProject.Controllers
         
         // GET: api/Movies
         [HttpGet]
-        public ActionResult GetMovies()
+        public async Task<ActionResult> GetMovies()
         {
             return Ok(new
             {
-                List = _db.Movies.ToList()
+                List = await _db.Movies.ToListAsync()
             });
         }
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public ActionResult Get(int id)
+        public async Task<ActionResult> Get(int id)
         {
-            var movie = _db.Movies.SingleOrDefault(a => a.Id == id);
+            var movie = await _db.Movies.SingleOrDefaultAsync(a => a.Id == id);
             
             if (movie == null)
             {
                 return BadRequest();
             }
             
-            IEnumerable<MovieReview> movieReviews = _db.MovieReview.Where(r => r.MovieId == id).Include(p => p.Profile).Include(n => n.Profile.User).ToList();
+            IEnumerable<MovieReview> movieReviews = await _db.MovieReview.Where(r => r.MovieId == id).Include(p => p.Profile).Include(n => n.Profile.User).ToListAsync();
             List<ReviewDto> reviewDto = new List<ReviewDto>();
             foreach (var review in movieReviews)
             {
@@ -70,7 +70,7 @@ namespace FinalProject.Controllers
         
         // POST: api/Movies
         [HttpPost]
-        public ActionResult Post( Movie movie )
+        public async Task<ActionResult> Post( Movie movie )
         {
             try
             {
@@ -81,14 +81,14 @@ namespace FinalProject.Controllers
                 int userId = int.Parse(token.Issuer);
 
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (profile == null)
                 {
                     return Unauthorized();
                 }
 
-                var movieInDatabase =  _db.Movies.Where(m => m.Title == movie.Title).ToList();
+                var movieInDatabase =  await _db.Movies.Where(m => m.Title == movie.Title).ToListAsync();
                 if (movieInDatabase.Count > 0)
                 {
                     return BadRequest(new
@@ -99,8 +99,8 @@ namespace FinalProject.Controllers
 
                 movie.ProfileId = profile.Id;
                 
-                _db.Movies.Add(movie);
-                _db.SaveChanges();
+                await _db.Movies.AddAsync(movie);
+                await _db.SaveChangesAsync();
                 
                 return Ok(movie);
             }
@@ -113,7 +113,7 @@ namespace FinalProject.Controllers
         
         // PUT: api/Movies/5
         [HttpPut("{id}")]
-        public ActionResult Put(int id, Movie movie)
+        public async Task<ActionResult> Put(int id, Movie movie)
         {
             try
             {
@@ -123,14 +123,14 @@ namespace FinalProject.Controllers
 
                 int userId = int.Parse(token.Issuer);
 
-                var profile = _db.Profiles.FirstOrDefault(p => p.UserId == userId);
+                var profile = await _db.Profiles.FirstOrDefaultAsync(p => p.UserId == userId);
 
                 if (profile == null)
                 {
                     return Unauthorized();
                 }
                 
-                var editMovie = _db.Movies.SingleOrDefault(a => a.Id == id);
+                var editMovie = await _db.Movies.SingleOrDefaultAsync(a => a.Id == id);
                 
                 if (editMovie == null)
                 {
@@ -148,7 +148,7 @@ namespace FinalProject.Controllers
                 editMovie.Rating = movie.Rating;
                 editMovie.Poster = movie.Poster;
                 
-                _db.SaveChanges();
+               await _db.SaveChangesAsync();
                 
                 return Ok(movie);
             }
